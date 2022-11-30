@@ -6,61 +6,45 @@
 
 int main(int argc, char *argv[])
 {
-    if (strcmp(argv[3], "clear") == 0)
+    if (strcmp(argv[3], "clear") == 0) // shell ekranı temizlenir
     {
         printf("\033[H\033[J");
     }
-    else if (strcmp(argv[3], "ls") == 0)
+    else if (strcmp(argv[3], "ls") == 0) // girilen sayı kadar ls programı çalıştırılır
     {
         for (int i = 0; i < atoi(argv[2]); i++)
         {
             system("/bin/ls");
         }
     }
-    else if (strcmp(argv[3], "cat") == 0)
+    else if (strcmp(argv[3], "bash") == 0) // default shell programına yani bash'e geçilir
     {
-        for (int i = 0; i < atoi(argv[2]); i++)
-        {
-            printf("cat:%s\n", argv[4]);
-        }
+        system("/bin/bash");
     }
-    else if (strcmp(argv[3], "bash") == 0)
-    {
-        for (int i = 0; i < atoi(argv[2]); i++)
-        {
-            system("/bin/bash");
-        }
-    }
-    else if (strcmp(argv[3], "exit") == 0)
+    else if (strcmp(argv[3], "exit") == 0) // programdan çıkış yapılır
     {
         for (int i = 0; i < atoi(argv[2]); i++)
         {
             exit(0);
         }
     }
-    else if (strcmp(argv[3], "writef") == 0)
+    else if (strcmp(argv[3], "writef") == 0 && !strcmp(argv[4], "-f") && argv[5] != NULL && argc == 6) // girilen sayı kadar writef programı çalıştırılır
     {
         int f, j;
-        for (int i = 0; i < atoi(argv[2]); i++)
+        f = fork();
+        if (f == 0)
         {
-            f = fork();
-            if (f == 0)
-            {
-                j = execve("writef", argv, NULL);
-                exit(0);
-                perror("exec failed");
-            }
-            else
-            {
-                wait(&j);
-            }
+            j = execve("writef", argv, NULL);
+            exit(0);
+            perror("exec failed");
+        }
+        else
+        {
+            wait(&j);
         }
     }
     else
     {
-        for (int i = 0; i < atoi(argv[2]); i++)
-        {
-            printf("%s\n", argv[3]);
-        }
+        printf("Hatali komut!\n");
     }
 }
