@@ -1,2 +1,2 @@
 # OS-My-Shell
-Linux shell program written by me
+shell program written by me
