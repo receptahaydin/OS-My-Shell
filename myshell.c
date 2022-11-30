@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     {
         int f, i;
         printf("\nmyshell>>");
-        gets(data); // kullanıcıdan input alınır
+        gets(data); // kullanıcıdan input alınır 
 
         const char *commands[10];
         commands[0] = strtok(data, " ");
